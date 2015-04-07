@@ -1,0 +1,6 @@
+{"_id":{"$oid":"5523da3f57cf9b5e2ba8337d"},"loc":{"coordinates":[-98.204779,19.005095],"type":"Point"},"name":"FCC BUAP"}
+{"_id":{"$oid":"5523dad057cf9b5e2ba8337e"},"loc":{"coordinates":[-98.19921299999999,19.00243],"type":"Point"},"name":"Facultad de Derecho"}
+{"_id":{"$oid":"5523db1057cf9b5e2ba8337f"},"loc":{"coordinates":[-98.20318600000002,19.003988],"type":"Point"},"name":"Facultad de Ingeniería Química"}
+{"_id":{"$oid":"5523db4c57cf9b5e2ba83380"},"loc":{"coordinates":[98.20235600000001,19.003137],"type":"Point"},"name":"FCE BUAP"}
+{"_id":{"$oid":"5523db9857cf9b5e2ba83381"},"loc":{"coordinates":[98.20369900000003,19.000095],"type":"Point"},"name":"Polideportivo BUAP"}
+{"_id":{"$oid":"5523dc1057cf9b5e2ba83382"},"loc":{"coordinates":[-98.203494,19.005331],"type":"Point"},"name":"San Claudio"}
