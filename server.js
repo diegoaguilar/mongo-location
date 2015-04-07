@@ -42,8 +42,8 @@ function placeStringsController (id) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-      response.setHeader('Content-Type','application/json');
-      response.end(JSON.stringify(strings));
+      response.setHeader('Content-Type','application/json; charset=utf-8');
+      response.end(JSON.stringify(strings,null,2));
   });
 }
 
@@ -60,9 +60,9 @@ function nearPlacesController(request,response) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-      places = JSON.stringify(places);
+      places = JSON.stringify(places,null,2);
       console.log(colors.bgBlue.white(places));
-      response.setHeader('Content-Type','application/json');
+      response.setHeader('Content-Type','application/json; charset=utf-8');
       response.end(places);
   });
 };
