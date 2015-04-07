@@ -49,8 +49,8 @@ function placeStringsController (id) {
 
 
 function nearPlacesController(request,response) {
-  var latitude = request.query.latitude;
-  var longitude = request.query.longitude;
+  var latitude = request.query.lat;
+  var longitude = request.query.long;
   var maxDistance = request.query.maxDistance;
 
   places.aggregate([
