@@ -6,7 +6,9 @@ var bodyParser    = require('body-parser');
 var errorHandler  = require('error-handler');
 var jade          = require('jade');
 var morgan        = require('morgan');
-var colors        = require('colors');
+var colors        = require('colors');.
+var jsonxml       = require('jsontoxml');
+
 var places = null;
 
 app.use(bodyParser.json());
@@ -60,10 +62,10 @@ function nearPlacesController(request,response) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-      places = JSON.stringify(places,null,2);
-      console.log(colors.bgBlue.white(places));
+      //places = JSON.stringify(places,null,2);
+      //console.log(colors.bgBlue.white(places));
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(places);
+      response.end(jsontoxml(places));
   });
 };
 
