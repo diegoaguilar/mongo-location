@@ -7,7 +7,7 @@ var errorHandler  = require('error-handler');
 var jade          = require('jade');
 var morgan        = require('morgan');
 var colors        = require('colors');
-var jsonxml       = require('jsontoxml');
+//var jsonxml       = require('jsontoxml');
 
 var places = null;
 
