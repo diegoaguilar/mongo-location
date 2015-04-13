@@ -65,7 +65,7 @@ function nearPlacesController(request,response) {
       //places = JSON.stringify(places,null,2);
       //console.log(colors.bgBlue.white(places));
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(jsontoxml(places));
+      response.end(JSON.stringify(places));
   });
 };
 
