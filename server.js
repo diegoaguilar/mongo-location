@@ -41,7 +41,7 @@ function placeStringsController (id) {
 
   strings.find({
     'place_id': id
-  }, {_id:false,{strings:true}}, function (err,strings) {
+  }, {_id:false,strings:true}, function (err,strings) {
       if (err) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
