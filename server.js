@@ -62,10 +62,10 @@ function nearPlacesController(request,response) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-      //places = JSON.stringify(places,null,2);
+      places = JSON.stringify(places,null,2);
       //console.log(colors.bgBlue.white(places));
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(JSON.stringify(places));
+      response.end(places);
   });
 };
 
