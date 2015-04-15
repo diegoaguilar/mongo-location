@@ -35,7 +35,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/places', function (err, db) {
 });
 
 
-function placeStringsController (id) {
+function placeStringsController (request,response) {
 
   var id = request.params.id;
 
