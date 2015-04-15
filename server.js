@@ -10,6 +10,7 @@ var colors        = require('colors');
 //var jsonxml       = require('jsontoxml');
 
 var places = null;
+var strings = null;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,9 +25,10 @@ MongoClient.connect('mongodb://127.0.0.1:27017/places', function (err, db) {
   if (err) throw err;
   console.log("Connected to database ... Will work with default places collection".inverse);
   places = db.collection('places');
+  strings = db.collection('strings');
 
   app.route('/places/near').get(nearPlacesController);
-  app.route('/places/strings/:id').get(placeStringsController);
+  app.route('/places/:id/strings').get(placeStringsController);
   app.listen(6190, function() {
     console.log('Express listening'.inverse);
   });
@@ -37,13 +39,14 @@ function placeStringsController (id) {
 
   var id = request.params.id;
 
-  places.find({
-    '_id': id
-  }, {_id:false}, function (err,strings) {
+  strings.find({
+    'place_id': id
+  }, {_id:false,{strings:true}}, function (err,strings) {
       if (err) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
+
       response.setHeader('Content-Type','application/json; charset=utf-8');
       response.end(JSON.stringify(strings,null,2));
   });
@@ -62,10 +65,9 @@ function nearPlacesController(request,response) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-      places = JSON.stringify(places,null,2);
-      //console.log(colors.bgBlue.white(places));
+
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(places);
+      response.end(JSON.stringify(places,null,2));
   });
 };
 
