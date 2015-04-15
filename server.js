@@ -41,14 +41,14 @@ function placeStringsController (request,response) {
 
   strings.find({
     'place_id': id
-  }, {_id:false,strings:true}, function (err,strings) {
+  }, {_id:false,strings:true}, function (err,foundStrings) {
       if (err) {
         console.log(colors.red(err));
         response.send("Existe un error en el servicio",500);
       }
-
+//      console.log(strings);
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(strings);
+      response.end(JSON.stringify(foundStrings,null,2));
   });
 }
 
