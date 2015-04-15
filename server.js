@@ -48,7 +48,7 @@ function placeStringsController (request,response) {
       }
 
       response.setHeader('Content-Type','application/json; charset=utf-8');
-      response.end(JSON.stringify(strings,null,2));
+      response.end(strings);
   });
 }
 
