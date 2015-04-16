@@ -41,7 +41,7 @@ function placeStringsController (request,response) {
   var id = request.params.id;
 
   strings.find({
-    'place_id': id
+    'place_id': new ObjectID(id)
   },{_id:false,strings:true}).toArray( function (err,foundStrings) {
       if (err) {
         console.log(colors.red(err));
