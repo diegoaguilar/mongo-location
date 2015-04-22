@@ -28,12 +28,38 @@ MongoClient.connect('mongodb://127.0.0.1:27017/places', function (err, db) {
   places = db.collection('places');
   strings = db.collection('strings');
 
+  app.route('/places').post(newPlaceController);
   app.route('/places/near').get(nearPlacesController);
   app.route('/places/:id/strings').get(placeStringsController);
+
   app.listen(6190, function() {
     console.log('Express listening'.inverse);
   });
 });
+
+function newPlaceController (request,response) {
+
+  console.log(request.body);
+  var latitude = request.body.lat;
+  var longitude = request.body.long;
+  var name = request.body.name;
+
+  var newPlace = getNewPlaceObject(name,latitude,longitude);  // This returns the object/document to be inserted
+
+  places.insert(newPlace, function (err,createdPlace) {
+
+    if (err)
+      response.send(JSON.stringify(err),500);
+
+    else {
+      console.log(createdPlace);
+      response.send(JSON.stringify(createdPlace.ops[0]._id),200);
+    }
+  });
+}
+
+function newStringsForPlace (request,response) {
+}
 
 
 function placeStringsController (request,response) {
