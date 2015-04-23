@@ -30,7 +30,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/places', function (err, db) {
 
   app.route('/places').post(newPlaceController);
   app.route('/places/near').get(nearPlacesController);
-  app.route('/places/:id/strings').get(placeStringsController);
+  app.route('/places/:id/strings').get(placeStringsController).post(newStringsForPlaceController);
 
   app.listen(6190, function() {
     console.log('Express listening'.inverse);
@@ -52,15 +52,31 @@ function newPlaceController (request,response) {
       response.send(JSON.stringify(err),500);
 
     else {
-      console.log(createdPlace);
-      response.send(JSON.stringify(createdPlace.ops[0]._id),200);
+
+      strings.insert({ place_id: createdPlace.ops[0]._id, strings: []}, function (err,result) {
+        if (!err)
+          response.send(JSON.stringify(createdPlace.ops[0]._id),200);
+        else
+          response.send(JSON.stringify(err),500);
+      });
     }
   });
 }
 
-function newStringsForPlace (request,response) {
+function newStringsForPlaceController (request,response) {
+  var newStrings = request.body.strings;
+  var place = request.params.id;
+  strings.update(
+   { place_id: new ObjectID(place) },
+   { $addToSet: { strings: { $each: newStrings } } },
+   function (err,result) {
+    if (!err)
+      response.send(JSON.stringify(result.ops),200);
+    else
+      response.send(JSON.stringify(err),500);
+   }
+ )
 }
-
 
 function placeStringsController (request,response) {
 
@@ -129,3 +145,5 @@ function getNearPlacesQueryObject (latitude, longitude, maxDistance, minDistance
 
   return nearQueryDocument;
 }
+
+
