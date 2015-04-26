@@ -28,14 +28,44 @@ MongoClient.connect('mongodb://127.0.0.1:27017/places', function (err, db) {
   places = db.collection('places');
   strings = db.collection('strings');
 
-  app.route('/places').post(newPlaceController);
+  app.route('/places').get(allPlacesController).post(newPlaceController);
   app.route('/places/near').get(nearPlacesController);
   app.route('/places/:id/strings').get(placeStringsController).post(newStringsForPlaceController);
+  app.route('/strings').get(allStringsController);
 
-  app.listen(6190, function() {
+  app.listen(6199, function() {
     console.log('Express listening'.inverse);
   });
 });
+
+function allPlacesController (request,response) {
+
+  places.find({}).toArray(function (err,result) {
+
+    if (err)
+      response.send(JSON.stringify(err), 500);
+
+    else{
+      console.log(result);
+      response.setHeader('Content-Type','application/json; charset=utf-8');
+      response.end(JSON.stringify(result, null, 2));
+    }
+  });
+}
+
+function allStringsController (request,response) {
+  strings.find({}).toArray(function (err,result) {
+
+    if (err)
+      response.send(JSON.stringify(err), 500);
+
+    else{
+      console.log(result);
+      response.setHeader('Content-Type','application/json; charset=utf-8');
+      response.end(JSON.stringify(result, null, 2));
+    }
+  });
+}
 
 function newPlaceController (request,response) {
 
